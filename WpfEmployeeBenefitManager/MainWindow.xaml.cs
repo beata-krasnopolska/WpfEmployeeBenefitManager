@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
@@ -154,7 +143,6 @@ namespace WpfEmployeeBenefitManager
                 sqlConnection.Open();
                 sqlCommand.Parameters.AddWithValue("@NameAndSurname", myTextBox.Text);
                 sqlCommand.ExecuteScalar();
-
             }
             catch (Exception ex)
             {
@@ -176,7 +164,6 @@ namespace WpfEmployeeBenefitManager
                 sqlConnection.Open();
                 sqlCommand.Parameters.AddWithValue("@BenefitName", myTextBox.Text);
                 sqlCommand.ExecuteScalar();
-
             }
             catch (Exception ex)
             {
@@ -201,7 +188,8 @@ namespace WpfEmployeeBenefitManager
 
                 using (sqlDataAdapter)
                 {
-
+                    if (listEmployees.SelectedValue == null)
+                        return;
                     sqlCommand.Parameters.AddWithValue("@EmployeeId", listEmployees.SelectedValue);
 
                     DataTable employeeDataTable = new DataTable();
@@ -229,7 +217,8 @@ namespace WpfEmployeeBenefitManager
 
                 using (sqlDataAdapter)
                 {
-
+                    if (listAllBenefits.SelectedValue == null)
+                        return;
                     sqlCommand.Parameters.AddWithValue("@BenefitId", listAllBenefits.SelectedValue);
 
                     DataTable employeeDataTable = new DataTable();
@@ -244,6 +233,7 @@ namespace WpfEmployeeBenefitManager
                 MessageBox.Show(ex.ToString());
             }
         }
+
         private void AddBenefitToEmployee_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -254,7 +244,6 @@ namespace WpfEmployeeBenefitManager
                 sqlCommand.Parameters.AddWithValue("@EmployeeId", listEmployees.SelectedValue);
                 sqlCommand.Parameters.AddWithValue("@BenefitId", listAllBenefits.SelectedValue);
                 sqlCommand.ExecuteScalar();
-
             }
             catch (Exception ex)
             {
@@ -276,7 +265,6 @@ namespace WpfEmployeeBenefitManager
                 sqlConnection.Open();
                 sqlCommand.Parameters.AddWithValue("@BenefitId", listAllBenefits.SelectedValue);
                 sqlCommand.ExecuteScalar();
-
             }
             catch (Exception ex)
             {
@@ -288,6 +276,7 @@ namespace WpfEmployeeBenefitManager
                 ShowAllBenefits();
             }
         }
+
         private void RemoveBenefit_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -330,6 +319,7 @@ namespace WpfEmployeeBenefitManager
                 ShowEmployees();
             }
         }
+
         private void UpdateBenefit_Click(object sender, RoutedEventArgs e)
         {
             try
